@@ -8,12 +8,13 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   static const String _title = 'Flutter Code Sample';
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
+      initialRoute: '/',
+      routes: <String, WidgetBuilder>{},
     );
   }
 }
@@ -54,9 +55,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -110,9 +108,7 @@ class _AppBarExampleState extends State<AppBarExample> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AppBar Demo'),
-        scrolledUnderElevation: scrolledUnderElevation,
-        shadowColor: shadowColor ? Theme.of(context).colorScheme.shadow : null,
+        title: const Text('BottomNavigationBar Sample'),
       ),
       body: GridView.builder(
         shrinkWrap: true,
@@ -125,67 +121,22 @@ class _AppBarExampleState extends State<AppBarExample> {
           crossAxisSpacing: 10.0,
         ),
         itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return Center(
-              child: Text(
-                'Scroll to see the Appbar in effect.',
-                style: Theme.of(context).textTheme.labelLarge,
-                textAlign: TextAlign.center,
-              ),
-            );
-          }
-          return Container(
-            alignment: Alignment.center,
-            // tileColor: _items[index].isOdd ? oddItemColor : evenItemColor,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              color: evenItemColor,
-            ),
-            child: Text('Item $index'),
-          );
-        },
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: OverflowBar(
-            overflowAlignment: OverflowBarAlignment.center,
-            alignment: MainAxisAlignment.center,
-            overflowSpacing: 5.0,
+          return Column(
             children: <Widget>[
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    shadowColor = !shadowColor;
-                  });
-                },
-                icon: Icon(
-                  shadowColor ? Icons.visibility_off : Icons.visibility,
-                ),
-                label: const Text('shadow color'),
-              ),
-              const SizedBox(width: 5),
-              ElevatedButton.icon(
-                onPressed: () {
-                  if (scrolledUnderElevation == null) {
-                    setState(() {
-                      // Default elevation is 3.0, increment by 1.0.
-                      scrolledUnderElevation = 4.0;
-                    });
-                  } else {
-                    setState(() {
-                      scrolledUnderElevation = scrolledUnderElevation! + 1.0;
-                    });
-                  }
-                },
-                icon: const Icon(Icons.add),
-                label: Text(
-                  'scrolledUnderElevation: ${scrolledUnderElevation ?? 'default'}',
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100.0),
+                child: Container(
+                  alignment: Alignment.center,
+                  constraints: const BoxConstraints(
+                    maxWidth: 50,
+                    maxHeight: 50,
+                  ),
+                  color: Colors.green,
                 ),
               ),
             ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }
